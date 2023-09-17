@@ -1,18 +1,21 @@
 import { randomUUID, randomBytes } from "crypto";
-import type { NextAuthOptions } from "next-auth";
+import { getServerSession, type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
 
 export const authOptions: NextAuthOptions = {
-  pages: {
-    signIn: "/login",
-  },
+  secret: process.env.SECRET as string,
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.CLIENT_ID as string,
-      clientSecret: process.env.CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
@@ -25,17 +28,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "database",
   },
-  callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
-        },
-      };
-    },
+  /* callbacks: {
     jwt: ({ token, user }) => {
       if (user) {
         const u = user as unknown as any;
@@ -47,5 +40,14 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-  },
+  }, */
 };
+
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions);
+}

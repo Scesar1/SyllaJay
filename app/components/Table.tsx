@@ -17,15 +17,15 @@ function Table() {
           <tbody>
             <tr>
               <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Littel, Schaden and Vandervort</td>
+              <td>Sample 1</td>
+              <td>Test assignment</td>
+              <td>February 31</td>
             </tr>
             <tr>
               <th>2</th>
-              <td>Lorelei Blackstone</td>
-              <td>Data Coordiator</td>
-              <td>Witting, Kutch and Greenfelder</td>
+              <td>Sample 2</td>
+              <td>Test assignment</td>
+              <td>February 31</td>
             </tr>
           </tbody>
         </table>

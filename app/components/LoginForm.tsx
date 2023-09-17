@@ -7,19 +7,11 @@ import React from "react";
 function LoginForm() {
   return (
     <div>
-      <div className="title">
-        <h1 className="text-gray-800 text-4xl font-bold text-center py-4">
-          Log In
-        </h1>
-        <p className="mx-auto text-gray-400 text-center">
-          Create an account to save your preferences and access your dashboard.
-        </p>
-      </div>
-      <div className="input-button">
+      <div className="input-button flex justify-center">
         <button
           type="button"
           onClick={() => signIn("google", { callbackUrl: "/profile" })}
-          className="w-full border py-3 flex rounded-md justify-center gap-2 hover:bg-gray-200"
+          className="bg-gray border py-3 px-10 flex rounded-md justify-center align-items-center gap-2 hover:bg-gray-200 "
         >
           Sign In with Google{" "}
           <Image src={"/google.svg"} width="20" height={20} alt="google" />

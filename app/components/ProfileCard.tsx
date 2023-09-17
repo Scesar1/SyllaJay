@@ -1,18 +1,28 @@
-"use client";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import LogOutBtn from "./LogOutBtn";
 
-function ProfileCard() {
+async function ProfileCard() {
+  const session = await getServerSession(authOptions);
   return (
-    <div className="card w-96 h-96 bg-base-100 shadow-lg">
-      <div className="avatar">
+    <div className="card w-96 h-96 bg-base-100 shadow-lg items-center">
+      <div className="avatar mt-10">
         <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-          <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <Image
+            src={session?.user?.image || ""}
+            width="100"
+            height="100"
+            alt="profile"
+          />
         </div>
       </div>
       <div className="card-body">
-        <h1 className="card-title justify-center">My name</h1>
-        <h2 className="">My email: jskjglkjfkj@gmail.com</h2>
-        <h2 className="">Change password</h2>
+        <h1 className="card-title justify-center">
+          {session ? session.user?.name : "Name: "}
+        </h1>
+        <h2 className="mt-5">{session ? session.user?.email : ""}</h2>
+        <LogOutBtn session={session}/>
       </div>
     </div>
   );

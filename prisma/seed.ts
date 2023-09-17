@@ -3,17 +3,22 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.upsert({
-    where: { email: "admin@admin.com" },
-    update: {},
+  const course = await prisma.course.upsert({
+    where: { courseCode: "EN.553.211" },
+    update: {
+      courseName: "Probability & Statistics",
+      professor: "Taylor Jones",
+      courseTime: "MWF 10:00am-10:50am, Tu 12:00pm-12:50pm",
+    },
     create: {
-      name: "Admin",
-      email: "admin@admin.com",
-      password: "password",
+      courseCode: "EN.553.211",
+      courseName: "Probability & Statistics",
+      professor: "Taylor Jones",
+      courseTime: "MWF 10:00am-10:50am, Tu 12:00pm-12:50pm",
     },
   });
 
-  console.log({ user });
+  console.log({ course });
 }
 
 main()
