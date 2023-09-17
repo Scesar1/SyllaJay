@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function CourseDisplay() {
-  const [courseName, setCourseName] = useState("");
-  const [courseCode, setCourseCode] = useState("");
-  const [professor, setProfessor] = useState("");
-  const [meetTime, setMeetTime] = useState("");
+  const courseCode = useRef<HTMLInputElement>(null);
+  const courseName = useRef<HTMLInputElement>(null);
+  const professor = useRef<HTMLInputElement>(null);
+  const courseTime = useRef<HTMLInputElement>(null);
   const router = useRouter();
   /**
    *
@@ -21,7 +21,7 @@ function CourseDisplay() {
           courseName: courseName,
           courseCode: courseCode,
           professor: professor,
-          courseTime: meetTime,
+          courseTime: courseTime,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -31,10 +31,6 @@ function CourseDisplay() {
     } catch (err) {
       console.error(err);
     } finally {
-      setCourseName("");
-      setCourseCode("");
-      setProfessor("");
-      setMeetTime("");
       router.push("/");
     }
   }
@@ -46,21 +42,25 @@ function CourseDisplay() {
           <form onSubmit={handleSubmit}>
             <input
               type="text"
+              ref={courseCode}
               placeholder="Course Code"
               className="input input-bordered input-secondary w-full max-w-xs"
             />
             <input
               type="text"
+              ref={courseName}
               placeholder="Course Title"
               className="input input-bordered input-secondary mt-3 w-full max-w-xs"
             />
             <input
               type="text"
+              ref={professor}
               placeholder="Professor"
               className="input input-bordered input-secondary w-full mt-3 max-w-xs"
             />
             <input
               type="text"
+              ref={courseTime}
               placeholder="Times"
               className="input input-bordered input-secondary w-full mt-3 max-w-xs"
             />
