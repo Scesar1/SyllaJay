@@ -1,7 +1,10 @@
 import openai
 import os
+from dotenv import load_dotenv
 
-api_key = "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"
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
 
 dict_of_topics = {
     "Class Name": "Give me the class name and instructor in the following format: class name, instructor",

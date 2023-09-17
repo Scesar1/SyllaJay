@@ -40,21 +40,22 @@ def test():
         else:
             topics_observed[topic] = [data, extra_data]
     
-    data = {}
+    data = []
     
     for topic in topics_observed:
-        if topic in dict_of_topics.keys():
-            data[topic] = {}
-            for i in range(len(dict_of_topics[topic])):
-                if i < len(topics_observed[topic][0]):
-                    data[topic][dict_of_topics[topic][i]] = topics_observed[topic][0][i]
-        
-        if topic in dict_of_topics_extra.keys():
-            data[topic] = {}
-            if len(topics_observed[topic]) > 1:  # Check if there's extra data
-                for i in range(len(dict_of_topics_extra[topic])):
-                    if i < len(topics_observed[topic][1]):
-                        data[topic][dict_of_topics_extra[topic][i]] = topics_observed[topic][1][i]
+        data[topic] = [topics_observed[topic]]
+        #if topic in dict_of_topics.keys():
+        #    data[topic] = {}
+        #    for i in range(len(dict_of_topics[topic])):
+        #        if i < len(topics_observed[topic][0]):
+        #            data[topic][dict_of_topics[topic][i]] = topics_observed[topic][0][i]
+        #
+        #if topic in dict_of_topics_extra.keys():
+        #    data[topic] = {}
+        #    if len(topics_observed[topic]) > 1:  # Check if there's extra data
+        #        for i in range(len(dict_of_topics_extra[topic])):
+        #            if i < len(topics_observed[topic][1]):
+        #                data[topic][dict_of_topics_extra[topic][i]] = topics_observed[topic][1][i]
     print(data)  # Print the JSON data
     return data
 
